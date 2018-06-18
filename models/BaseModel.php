@@ -6,6 +6,7 @@
  * Time: 15:35
  */
 
+include __DIR__ . '/../config/config.php';
 require __DIR__ . '/../libs/dbhelper.php';
 use vielhuber\dbhelper\dbhelper;
 
@@ -14,8 +15,10 @@ abstract class BaseModel{
     private $db;
 
     function __construct(){
+        global $DBCONFIG;
         $this->db = new dbhelper();
-        $this->db->connect('pdo', 'mysql', '127.0.0.1', 'root', null, 'loteria', 3306);
+        //$this->db->connect('pdo', 'mysql', '127.0.0.1', 'root', null, 'loteria', 3306);
+        $this->db->connect('pdo', 'mysql', $DBCONFIG['HOST'], $DBCONFIG['USERNAME'], $DBCONFIG['PASSWORD'],$DBCONFIG['DATABASE'],$DBCONFIG['PORT']);
     }
 
     public function getLogName($data){
