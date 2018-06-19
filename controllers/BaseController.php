@@ -3,7 +3,7 @@
 require_once __DIR__.'/../models/EventModel.php';
 
 date_default_timezone_set('UTC');
-define('PAGE_SIZE',10);
+define('PAGE_SIZE',20);
 
 class BaseController {
 
@@ -13,7 +13,7 @@ class BaseController {
 
     function __construct()
     {
-        $this->eventModel = new EventModel();
+        $this->eventModel = new EventModel();git
     }
 
     function getModel(){
