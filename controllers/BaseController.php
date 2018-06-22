@@ -13,7 +13,7 @@ class BaseController {
 
     function __construct()
     {
-        $this->eventModel = new EventModel();git
+        $this->eventModel = new EventModel();
     }
 
     function getModel(){
@@ -146,13 +146,13 @@ class BaseController {
 
             $object=$this->getModel()->findById($id);
             if($object){
-                $this->logEditionEvent($object,0);
 
                 $this->getModel()->update($id,$data);
 
                 $updated=$this->getModel()->findById($id);
 
                 $this->logEditionEvent($updated,1);
+                $this->logEditionEvent($object,0);
 
                 $this->returnSuccess(200,$updated);
             }else{
