@@ -3,7 +3,7 @@
 require_once __DIR__.'/../models/EventModel.php';
 
 date_default_timezone_set('UTC');
-define('PAGE_SIZE',20);
+define('PAGE_SIZE',5);
 
 class BaseController {
 
@@ -151,8 +151,8 @@ class BaseController {
 
                 $updated=$this->getModel()->findById($id);
 
-                $this->logEditionEvent($updated,1);
-                $this->logEditionEvent($object,0);
+
+                $this->logEditionEvent($object,$updated);
 
                 $this->returnSuccess(200,$updated);
             }else{
@@ -163,23 +163,7 @@ class BaseController {
             $this->getModel()->save($data);
             $this->returnSuccess(201,$data);
         }
-/*
-        $id = $data['id'];
-        unset($data['id']);
-        if($this->getModel()->findById($id)){
-            $this->getModel()->update($id,$data);
 
-            $updated=$this->getModel()->findById($id);
-
-            $this->logEditionEvent($updated);
-
-            $this->returnSuccess(200,$updated);
-        }else{
-            $this->getModel()->save($data);
-            $this->returnSuccess(201,$data);
-        }
-
-*/
     }
 
     function delete(){
@@ -203,14 +187,13 @@ class BaseController {
         $this->logEvent($this->getModel()->getLogName($data),$this->getModel()->getState($data),$this->getModel()->getAmount($data),$this->getModel()->getDescription($data));
     }
 
-    function logEditionEvent($data,$prev){
-        if($prev == 1){
-            $state=$this->getModel()->getStateEdited();
-        }else{
-            $state="Antes";
-        }
-        $this->logEvent($this->getModel()->getLogName($data),$state,$this->getModel()->getAmount($data),$this->getModel()->getDescriptionDeletion($data));
-    }
+
+   function logEditionEvent($previous,$updated){
+
+       $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$this->getModel()->getAmount($updated),$this->getModel()->getDescriptionDeletion($updated));
+       $this->logEvent($this->getModel()->getLogName($previous),"Antes",$this->getModel()->getAmount($previous),$this->getModel()->getDescriptionDeletion($previous));
+   }
+
 
     function logDeletionEvent($data){
         $this->logEvent($this->getModel()->getLogName($data),"Eliminado",$this->getModel()->getAmount($data),$this->getModel()->getDescriptionDeletion($data));

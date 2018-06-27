@@ -34,6 +34,10 @@ abstract class BaseModel{
         return "";
     }
 
+    public function getDescriptionEdition($previous,$edited){
+        return "";
+    }
+
     public function getState($data){
         return "Nuevo";
     }
@@ -41,6 +45,7 @@ abstract class BaseModel{
     function getStateEdited(){
         return "Editado";
     }
+
 
     public function getAmount($data){
         return 0;

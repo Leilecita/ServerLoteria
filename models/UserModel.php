@@ -30,6 +30,21 @@ class UserModel extends BaseModel
             return $this->getDb()->insert($this->tableName, $data);
         }
     }
+    function update($id,$data){
+
+        error_log(print_r($data,true));
+        if(empty($data['imageData'])) {
+            unset($data['imageData']);
+            return $this->getDb()->update($this->tableName, $data,['id' => "$id"]);
+        }else{
+            $filePath = '/uploads/users/'.time().'.jpg';
+            $this->base64_to_jpeg($data['imageData'],__DIR__.'/..'.$filePath);
+            unset($data['imageData']);
+            $data['image_url'] = $filePath;
+
+            return $this->getDb()->update($this->tableName, $data,['id' => "$id"]);
+        }
+    }
 
     public function getLogName($data){
         return "Usuario";

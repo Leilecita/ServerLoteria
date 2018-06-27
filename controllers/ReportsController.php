@@ -71,11 +71,11 @@ class ReportsController extends BaseController
 
         $reportItems[] = array('model_name'=> 'Errores vendidos', 'total'=>$mistakes->sumSoldMistakes());
         $reportItems[] = array('model_name'=> 'Movimientos', 'total'=>$spendings->sum($created));
-        $reportItems[] = array('model_name'=> 'Preimpresos', 'total'=>$tickets->sumPreimpresos());
+        $reportItems[] = array('model_name'=> 'Juegos', 'total'=>$tickets->sumPreimpresos());
         $reportItems[] = array('model_name'=> 'Transacciones', 'total'=>$transactions->sum($created));
 
         $reportItems[] = array('model_name'=> 'Depósito', 'total'=>$lastBox['deposit']);
-        $reportItems[] = array('model_name'=> 'Maquina A', 'total'=>$lastBox['debt_a']);
+        $reportItems[] = array('model_name'=> 'Deuda maquina A', 'total'=>$lastBox['debt_a']);
         $reportItems[] = array('model_name'=> 'Resto de caja', 'total'=>$lastBox['money_day_after']);
         $reportItems[] = array('model_name'=> 'Inicio día', 'total'=>$lastBox['money_init_day']);
 
@@ -161,7 +161,7 @@ class ReportsController extends BaseController
 
         $textItem[]=" Caja del día: \n";
         $textItem[]=" Depósito: $".$lastBox['deposit']."\n";
-        $textItem[]=" Maquina A: $".$lastBox['debt_a']."\n";
+        $textItem[]=" Deuda maquina A: $".$lastBox['debt_a']."\n";
         $textItem[]=" Resto de caja: $".$lastBox['money_day_after']."\n";
         $textItem[]=" Inicio del día: $".$lastBox['money_init_day']."\n";
 
@@ -172,8 +172,6 @@ class ReportsController extends BaseController
         }
 
         $this->returnSuccess(200,$textItem);
-
-
 
     }
 

@@ -25,9 +25,6 @@ class UsersController extends BaseController {
         }
     }
 
-    public function post(){
-        parent::post();
-    }
 
     public function getFilters()
     {

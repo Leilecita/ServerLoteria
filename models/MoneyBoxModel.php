@@ -39,6 +39,25 @@ class MoneyBoxModel extends BaseModel
         return $string;
     }
 
+    public function checkChangedField($previous, $edited){
+
+        if ($previous['debt_a'] != $edited['debt_a']) {
+           return 'Deuda maquin A: '.$edited['debt_a'] ;
+        } elseif ($previous['deposit'] != $edited['deposit']) {
+            return 'Depósito: '.$edited['deposit'];
+        } elseif ($previous['money_day_after'] != $edited['money_day_after']) {
+            return 'Resto de caja: '.$edited['money_day_after'];
+        }elseif ($previous['money_init_day'] != $edited['money_init_day']) {
+            return 'Inicio dia: '.$edited['money_init_day'];
+        }
+        return "null";
+    }
+
+    public function getDescriptionEdition($previous, $edited){
+       return $this->checkChangedField($previous, $edited);
+    }
+
+
     public function getState($data){
         return "";
     }

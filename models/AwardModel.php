@@ -29,4 +29,6 @@ class AwardModel extends BaseModel
     public function getDescriptionDeletion($data){
         return $data['name']." ".$data['amount'];
     }
+
+
 }
