@@ -33,6 +33,6 @@ class UsersController extends BaseController {
         if(isset($_GET['query']) && !empty($_GET['query'])){
             $filters[] = 'name like "%'.$_GET['query'].'%"';
         }
-return $filters;
+        return $filters;
     }
 }
