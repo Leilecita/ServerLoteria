@@ -11,6 +11,22 @@ class UsersController extends BaseController {
         $this->model = new UserModel();
     }
 
+    function get(){
+        if(isset($_GET['method'])){
+            $this->method();
+        }else if($this->validateId()){
+            $entity = $this->getModel()->findById($_GET['id']);
+            if(!empty($entity)){
+                $this->returnSuccess(200,$entity);
+            }else{
+                $this->returnError(404,"ENTITY NOT FOUND");
+            }
+
+        }else{
+            $this->returnSuccess(200,$this->getModel()->findAllByName($this->getFilters(),$this->getPaginator()));
+        }
+    }
+
     public function delete()
     {
         $user_id = $_GET['id'];
