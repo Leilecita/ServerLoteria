@@ -35,6 +35,9 @@ class UserModel extends BaseModel
         error_log(print_r($data,true));
         if(empty($data['imageData'])) {
             unset($data['imageData']);
+
+            $this->updateTransactions($id,$data['name']);
+
             return $this->getDb()->update($this->tableName, $data,['id' => "$id"]);
         }else{
             $filePath = '/uploads/users/'.time().'.jpg';
@@ -45,6 +48,12 @@ class UserModel extends BaseModel
             return $this->getDb()->update($this->tableName, $data,['id' => "$id"]);
         }
     }
+
+   public function updateTransactions($user_id,$name){
+       $operationModel = new OperationModel();
+       $operationModel->updateTransactions($user_id,array('user_name' => "$name"));
+   }
+
 
     public function getLogName($data){
         return "Usuario";

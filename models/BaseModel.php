@@ -209,6 +209,10 @@ abstract class BaseModel{
         return  $this->db->update($this->tableName, $data,['sold_today' => "$sold"]);
     }
 
+    function updateTransactions($id,$data){
+        return  $this->db->update($this->tableName, $data,['user_id' => "$id"]);
+    }
+
     function updateAll( $data){
         $query = 'UPDATE '.$this->tableName.' SET ';
         foreach ($data as $k => $v){
