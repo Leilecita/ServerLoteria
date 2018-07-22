@@ -48,6 +48,9 @@ class BaseController {
         if(isset($_GET['document'])){
             $filters[] = 'document = "'.$_GET['document'].'"';
         }
+        if(isset($_GET['created_equal'])){
+            $filters[] = 'created = "'.$_GET['created_equal'].'"';
+        }
         return $filters;
     }
 

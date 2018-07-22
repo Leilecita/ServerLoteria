@@ -39,6 +39,32 @@ class ReportsController extends BaseController
         $lastBox = $money_box->findLast();
         $tickets = new TicketModel();
 
+        $sumAwards= $awards->sumAwards($created);
+        $mistakesDay=$mistakes->sum($created);
+        $mistakesSold=$mistakes->sumSoldMistakes();
+        $sube=$awards->sumSube($created,"sube");
+        $sumOperations=$transactions->sum($created);
+        $sumTickets=$tickets->sumPreimpresos();
+        $sumDeposit=$lastBox['deposit'];
+        $sumDebtA=$lastBox['debt_a'];
+        $sumMoves=$spendings->sum($created);
+        $sumInitDay=$lastBox['money_init_day'];
+        $sumRestBox=$lastBox['money_day_after'];
+
+        $total_amount=$sumAwards+$mistakesDay+$mistakesSold+$sube+$sumOperations+$sumTickets+$sumDeposit+$sumDebtA+$sumMoves+$sumInitDay+$sumRestBox;
+
+        $reportItems2 = array(
+            array(
+                'awards' => $sumAwards, 'mistakes_day' => $mistakesDay , 'mistakes_sold' => $mistakesSold, 'sube' => $sube,
+                'operations' => $sumOperations,
+                'tickets' =>  $sumTickets,
+                'deposit' => $sumDeposit ,'debt_a' =>$sumDebtA,'box_moves' => $sumMoves,'init_day' => $sumInitDay,'rest_box' => $sumRestBox,
+                'total_amount' =>$total_amount,
+                'created' => $lastBox['created']
+            )
+        );
+
+
         $reportItems = array(
             array(
                 'awards' => $awards->sumAwards($created), 'mistakes_day' => $mistakes->sum($created) , 'mistakes_sold' => $mistakes->sumSoldMistakes(), 'sube' => $awards->sumSube($created,"sube"),
@@ -49,8 +75,9 @@ class ReportsController extends BaseController
             )
         );
 
-        return $reportItems;
+        return $reportItems2;
     }
+
 
     function totales()
     {
