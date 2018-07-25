@@ -197,12 +197,22 @@ abstract class BaseModel{
         $query = 'SELECT * FROM '.$this->tableName .( empty($filters) ?  '' : ' WHERE '.$conditions ).' ORDER BY name ASC LIMIT '.$paginator['limit'].' OFFSET '.$paginator['offset'];
         return $this->db->fetch_all($query);
     }
+
+    function findAllByNameAndDebt($filters=array(),$paginator=array()){
+        $conditions = join(' AND ',$filters);
+        $query = 'SELECT * FROM '.$this->tableName .( empty($filters) ?  '' : ' WHERE '.$conditions ).' ORDER BY name ASC, debt ASC LIMIT '.$paginator['limit'].' OFFSET '.$paginator['offset'];
+        return $this->db->fetch_all($query);
+    }
     function save($data){
         return $this->db->insert($this->tableName, $data );
     }
 
     function update($id, $data){
        return  $this->db->update($this->tableName, $data,['id' => "$id"]);
+    }
+
+    function updateDebtUser($id, $data){
+        return  $this->db->update($this->tableName, $data,['id' => "$id"]);
     }
 
     function updateMistakes($sold, $data){

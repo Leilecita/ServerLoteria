@@ -17,11 +17,14 @@ class OperationsController extends BaseController {
     function put(){
         $data = (array) json_decode(file_get_contents("php://input"));
         if($this->users->findById($data["user_id"])){
+
             parent::put();
+            $this->updateDebtUser($data);
         }else{
             $this->returnError(404,'Usuario no existe');
         }
     }
+
 
 
     function amount(){
@@ -40,6 +43,35 @@ class OperationsController extends BaseController {
         }
 
     }
+
+    function post(){
+
+        parent::post();
+
+        $data = (array) json_decode(file_get_contents("php://input"));
+        $this->updateDebtUser($data);
+    }
+
+    function delete(){
+
+        $operation=$this->getModel()->findById($_GET["id"]);
+
+        parent::delete();
+
+        $this->updateDebtUser($operation);
+
+    }
+
+    function updateDebtUser($data){
+        if($this->users->findById($data["user_id"])){
+            $totalAmount= $this->getModel()->getSumAmountByUserId($data["user_id"]);
+            $this->users->updateDebtUser($data["user_id"],array('debt'=> $totalAmount));
+        }
+    }
+
+
+
+
 
     /*
      *

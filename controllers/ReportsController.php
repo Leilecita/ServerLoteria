@@ -192,11 +192,11 @@ class ReportsController extends BaseController
         $textItem[]=" Resto de caja: $".$lastBox['money_day_after']."\n";
         $textItem[]=" Inicio del día: $".$lastBox['money_init_day']."\n";
 
-        $textItem[]=" Historial de eventos: \n";
+       /* $textItem[]=" Historial de eventos: \n";
         for($i=0;$i < count($eventsList); $i++){
             $textItem[]= "* ".$eventsList[$i]['name']. " - ".$eventsList[$i]['state']. " - ".$eventsList[$i]['amount'].
                 " - ".$eventsList[$i]['observation']. " - ".$this->formatDate($eventsList[$i]['created'])." \n";
-        }
+        }*/
 
         $this->returnSuccess(200,$textItem);
 

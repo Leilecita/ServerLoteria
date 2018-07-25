@@ -23,7 +23,8 @@ class UsersController extends BaseController {
             }
 
         }else{
-            $this->returnSuccess(200,$this->getModel()->findAllByName($this->getFilters(),$this->getPaginator()));
+            //$this->returnSuccess(200,$this->getModel()->findAllByName($this->getFilters(),$this->getPaginator()));
+            $this->returnSuccess(200,$this->getModel()->findAllByNameAndDebt($this->getFilters(),$this->getPaginator()));
         }
     }
 
