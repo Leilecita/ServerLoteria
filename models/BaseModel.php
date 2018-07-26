@@ -75,6 +75,28 @@ abstract class BaseModel{
         }
     }
 
+    function sumPositive($date,$value){
+        $response = $this->db->fetch_row('SELECT SUM(amount) AS total FROM '.$this->tableName.' WHERE created >= ? AND amount >= ? ORDER BY created ASC',$date,$value);
+        if($response["total"]!=null){
+            return $response["total"];
+        }else{
+            return 0;
+        }
+    }
+
+    function sumNegative($date,$value){
+        $response = $this->db->fetch_row('SELECT SUM(amount) AS total FROM '.$this->tableName.' WHERE created >= ? AND amount < ? ORDER BY created ASC',$date,$value);
+        if($response["total"]!=null){
+            return $response["total"];
+        }else{
+            return 0;
+        }
+    }
+
+
+
+
+
     function getSumAmountByDate($date){
         $response = $this->db->fetch_row('SELECT SUM(amount) AS total FROM '.$this->tableName.' WHERE created >= ?',$date);
         if($response['total'] != null){
