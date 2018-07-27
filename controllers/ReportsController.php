@@ -118,12 +118,14 @@ class ReportsController extends BaseController
         $reportItems[] = array('model_name'=> 'Errores vendidos', 'total'=>$mistakes->sumSoldMistakes());
         $reportItems[] = array('model_name'=> 'Movimientos de caja', 'total'=>$sumMoves);
         $reportItems[] = array('model_name'=> 'Preimpresos', 'total'=>$sumTickets);
-        $reportItems[] = array('model_name'=> 'Fiados del día', 'total'=>$transactions->sum($created));
+        $reportItems[] = array('model_name'=> 'Fiados del día', 'total'=>$sumOperationsNewTrust);
 
+        $reportItems[] = array('model_name'=> 'Pago de fiados anteriores', 'total'=>$sumOperationsDebtCancel);
         $reportItems[] = array('model_name'=> 'Depósito bancario', 'total'=>$lastBox['deposit']);
         $reportItems[] = array('model_name'=> 'Deuda maquina A', 'total'=>$lastBox['debt_a']);
         $reportItems[] = array('model_name'=> 'Resto de caja', 'total'=>$lastBox['money_day_after']);
         $reportItems[] = array('model_name'=> 'Inicio día', 'total'=>$lastBox['money_init_day']);
+
 
         $totalAmount=0;
         for($i = 0; $i < count($reportItems); ++$i) {
@@ -137,7 +139,7 @@ class ReportsController extends BaseController
         $totalAmount2= $sum - $rest;
 
         //$reportItems[] = array('model_name'=> 'TOTAL', 'total'=>$totalAmount);
-        $reportItems[] = array('model_name'=> 'TOTAL', 'total'=>$totalAmount2);
+        $reportItems[] = array('model_name'=> 'RESULTADO DE LA CAJA', 'total'=>$totalAmount2);
 
         $this->returnSuccess(200,array('name' => 'Report '.$created, 'items' => $reportItems));
     }
