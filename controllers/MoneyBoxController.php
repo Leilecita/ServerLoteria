@@ -52,9 +52,11 @@ class MoneyBoxController extends BaseController {
                 'awards' => "1.0", 'mistakes_day' => "0.0", 'mistakes_sold' => "0.0", 'sube' => "0.0",
                 'operations' => "0.0",
                 'tickets' => "0.0",
-                'deposit' => "0.0",'debt_a' => "0.0",'box_moves' => "0.0",'init_day' => "0.0",'rest_box' => "0.0"
+                'deposit' => "0.0",'debt_a' => "0.0",'box_moves' => "0.0",'init_day' => "0.0",'rest_box' => "0.0",'total_amount' => "0"
             )
         );
+
+
 
         if(empty($last)){
             $reportsFile->getModel()->save($dataReport);
@@ -67,7 +69,6 @@ class MoneyBoxController extends BaseController {
     }
     public function post()
     {
-
         $this->save_report();
 
         $ticketModel = new TicketModel();

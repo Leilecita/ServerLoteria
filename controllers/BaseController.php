@@ -186,6 +186,10 @@ class BaseController {
         $this->eventModel->save(array('name' => $name, 'state' => $state, 'amount' => $amount, 'observation'=> $observation));
     }
 
+    function logEventClose($name,$state,$amount,$observation){
+        $this->logEvent($name,$state,$amount,$observation);
+    }
+
     function logCreationEvent($data){
         $this->logEvent($this->getModel()->getLogName($data),$this->getModel()->getState($data),$this->getModel()->getAmount($data),$this->getModel()->getDescription($data));
     }
