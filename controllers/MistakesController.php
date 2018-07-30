@@ -20,7 +20,8 @@ class MistakesController extends BaseController {
 
     function logEditionEvent($previous,$updated){
 
-        $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$this->getModel()->getAmount($updated),$this->getModel()->getDescriptionDeletion($updated));
+       // $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$this->getModel()->getAmount($updated),"[Vendido] ".$this->getModel()->getDescriptionDeletion($updated));
+        $this->logEvent($this->getModel()->getLogName($updated),$previous['name'] ,$this->getModel()->getAmount($updated),"[Vendido] ".$this->getModel()->getDescriptionDeletion($updated));
     }
 
 

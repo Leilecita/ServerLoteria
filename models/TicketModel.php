@@ -17,7 +17,7 @@ class TicketModel extends BaseModel
     }
 
     public function getDescription($data){
-        return "Nuevo";
+        return "[Nuevo]";
 
     }
 

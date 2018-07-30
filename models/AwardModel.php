@@ -21,7 +21,7 @@ class AwardModel extends BaseModel
     }
 
     public function getDescription($data){
-        return "Nuevo ";
+        return "[Nuevo]";
     }
     public function getAmount($data){
         return $data['amount'];

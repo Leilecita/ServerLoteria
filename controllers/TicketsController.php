@@ -14,7 +14,9 @@ class TicketsController extends BaseController {
     function logEditionEvent($previous,$updated){
 
        // $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$this->getModel()->getAmount($updated),$this->change($previous, $updated));
-        $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$previous['name'],$this->change($previous, $updated));
+        $this->logEvent($this->getModel()->getLogName($updated),$previous['name'] ,
+            0.0,$this->change($previous, $updated));
+       // $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$previous['name'],$this->change($previous, $updated));
     }
 
     function change($previous, $updated){

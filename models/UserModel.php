@@ -64,7 +64,7 @@ class UserModel extends BaseModel
     }
 
     public function getDescription($data){
-        return "Nuevo";
+        return "[Nuevo]";
     }
 
     public function getDescriptionDeletion($data){

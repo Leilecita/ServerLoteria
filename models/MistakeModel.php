@@ -18,7 +18,7 @@ class MistakeModel extends BaseModel
     }
 
     public function getDescription($data){
-        return "Nuevo";
+        return "[Nuevo]";
     }
 
     public function getState($data){
@@ -30,7 +30,7 @@ class MistakeModel extends BaseModel
     }
 
     public function getDescriptionDeletion($data){
-        return $data['name']." ".$data['information'];
+        return $data['information'];
     }
 
 
