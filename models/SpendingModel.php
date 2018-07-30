@@ -16,7 +16,7 @@ class SpendingModel extends BaseModel
     }
     public function getLogName($data){
         if($data['amount'] < 0){
-            return "Gasto";
+            return "Egreso";
         }else{
             return "Ingreso";
         }

@@ -18,6 +18,10 @@ class MistakesController extends BaseController {
         return $this->returnSuccess(200,$totalAmount);
     }
 
+    function logEditionEvent($previous,$updated){
+
+        $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$this->getModel()->getAmount($updated),$this->getModel()->getDescriptionDeletion($updated));
+    }
 
 
 

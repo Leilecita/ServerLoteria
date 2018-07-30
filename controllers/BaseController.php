@@ -206,4 +206,5 @@ class BaseController {
         $this->logEvent($this->getModel()->getLogName($data),"Eliminado",$this->getModel()->getAmount($data),$this->getModel()->getDescriptionDeletion($data));
     }
 
+
 }

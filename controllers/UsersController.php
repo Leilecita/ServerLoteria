@@ -52,4 +52,30 @@ class UsersController extends BaseController {
         }
         return $filters;
     }
+
+    function logEditionEvent($previous,$updated){
+
+       // $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$this->getModel()->getAmount($updated),$this->change($previous, $updated));
+        $this->logEvent($this->getModel()->getLogName($updated),$previous['name'] ,$this->getModel()->getAmount($updated),$this->change($previous, $updated));
+    }
+
+    function change($previous, $updated){
+
+        $name="";
+        $phone="";
+        $document="";
+
+        if($previous['name'] !== $updated['name']){
+            $name= "Nombre: ".$previous['name']. " -> ". $updated['name']." ";
+        }
+        if($previous['phone'] !== $updated['phone']){
+            $phone= "Teléfono: ".$previous['phone']. " -> ". $updated['phone']." ";
+        }
+        if($previous['document'] !== $updated['document']){
+            $document= "DNI/User: ".$previous['document']. " -> ". $updated['document'];
+        }
+
+        return '['.$this->getModel()->getStateEdited() .'] '.$name.$phone.$document;
+
+    }
 }

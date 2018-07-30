@@ -80,5 +80,24 @@ class MoneyBoxController extends BaseController {
         parent::post();
     }
 
+    function logEditionEvent($previous,$updated){
 
+        $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$this->getModel()->getAmount($updated),$this->change($previous, $updated));
+    }
+
+    function change($previous, $updated){
+
+        if($previous['debt_a'] !== $updated['debt_a']){
+            return "Deuda máquina A: ".$previous['debt_a']. " -> ". $updated['debt_a'];
+        }else  if($previous['deposit'] !== $updated['deposit']){
+            return "Depósito bancario: ".$previous['deposit']. " -> ". $updated['deposit'];
+        }else  if($previous['money_day_after'] !== $updated['money_day_after']){
+            return "Resto de caja: ".$previous['money_day_after']. " -> ". $updated['money_day_after'];
+        }else  if($previous['money_init_day'] !== $updated['money_init_day']){
+            return "Inicio del día: ".$previous['money_init_day']. " -> ". $updated['money_init_day'];
+        }else{
+            return "";
+        }
+
+    }
 }

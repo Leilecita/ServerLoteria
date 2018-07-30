@@ -70,7 +70,35 @@ class OperationsController extends BaseController {
     }
 
 
+    function logEditionEvent($previous,$updated){
 
+       // $this->logEvent($this->getModel()->getLogName($updated),$this->getModel()->getStateEdited() ,$this->getModel()->getAmount($updated),$this->change($previous, $updated));
+        $this->logEvent($this->getModel()->getLogName($updated),$previous['user_name'] ,$this->getModel()->getAmount($updated),$this->change($previous, $updated));
+    }
+
+    function change($previous, $updated){
+
+        $value="";
+        $observation="";
+        $userName="";
+        $created="";
+
+        if($previous['amount'] !== $updated['amount']){
+            $value= "Valor: ".$previous['amount']. " -> ". $updated['amount']." ";
+        }
+        if($previous['observation'] !== $updated['observation']){
+            $observation= "Observación: ".$previous['observation']. " -> ". $updated['observation']." ";
+        }
+        if($previous['user_name'] !== $updated['user_name']){
+            $userName= "DNI/User: ".$previous['user_name']. " -> ". $updated['user_name']." ";
+        }
+        if($previous['created'] !== $updated['created']){
+            $created= "Fecha: ".$previous['created']. " -> ". $updated['created'];
+        }
+
+        return '['.$this->getModel()->getStateEdited().'] '.$value.$observation.$userName.$created;
+
+    }
 
 
     /*

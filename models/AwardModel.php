@@ -11,7 +11,13 @@ class AwardModel extends BaseModel
     }
 
     public function getLogName($data){
-        return "Premio";
+
+        if($data['name'] === "Sube"){
+            return "Carga";
+        }else{
+            return "Premio";
+        }
+
     }
 
     public function getDescription($data){

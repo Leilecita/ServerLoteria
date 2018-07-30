@@ -63,7 +63,7 @@ class ReportsController extends BaseController
 
         $sum= abs($sumRestBox) + abs($sumDeposit) + abs($sumOperationsNewTrust) +abs($mistakesDay) + abs($sumMovesSpending) + abs($sumAwards);
 
-        $rest= abs($sumInitDay) + abs($sumOperationsDebtCancel) + abs($sumTickets) + abs($sube) + abs($sumDebtA) + abs($sumMovesEntry);
+        $rest= abs($sumInitDay) + abs($sumOperationsDebtCancel) + abs($sumTickets) + abs($mistakesSold) + abs($sube) + abs($sumDebtA) + abs($sumMovesEntry);
 
         $total_amount2= $sum - $rest;
 
@@ -101,6 +101,7 @@ class ReportsController extends BaseController
         $sumOperationsDebtCancel=$transactions->sumPositive($created,0); //fiados de dias anteriores cancelados
 
         $mistakesDay=$mistakes->sum($created);
+        $soldedMistakes=$mistakes->sumSoldMistakes();
         $sumMoves=$spendings->sum($created);
 
         $sumMovesSpending=$spendings->sumNegative($created,0.0);
@@ -115,7 +116,7 @@ class ReportsController extends BaseController
         $reportItems[] = array('model_name'=> 'Carga sube', 'total'=>$sube);
         $reportItems[] = array('model_name'=> 'Errores', 'total'=>$mistakesDay);
 
-        $reportItems[] = array('model_name'=> 'Errores vendidos', 'total'=>$mistakes->sumSoldMistakes());
+        $reportItems[] = array('model_name'=> 'Errores vendidos', 'total'=>$soldedMistakes);
         $reportItems[] = array('model_name'=> 'Movimientos de caja', 'total'=>$sumMoves);
         $reportItems[] = array('model_name'=> 'Preimpresos', 'total'=>$sumTickets);
         $reportItems[] = array('model_name'=> 'Fiados del día', 'total'=>$sumOperationsNewTrust);
@@ -134,7 +135,7 @@ class ReportsController extends BaseController
 
         $sum= abs($lastBox['money_day_after']) + abs($lastBox['deposit']) + abs($sumOperationsNewTrust) +abs($mistakesDay)  + abs($sumMovesSpending) + abs($sumAwards);
 
-        $rest= abs($lastBox['money_init_day']) + abs($sumOperationsDebtCancel) + abs($sumTickets) + abs($sube) + abs($lastBox['debt_a']) + abs($sumMovesEntry);
+        $rest= abs($lastBox['money_init_day']) + abs($sumOperationsDebtCancel) + abs($soldedMistakes) + abs($sumTickets) + abs($sube) + abs($lastBox['debt_a']) + abs($sumMovesEntry);
 
         $totalAmount2= $sum - $rest;
 

@@ -30,5 +30,4 @@ class TicketModel extends BaseModel
         return $data['name']." $".$data['amount']." Stock:".$data['stock']." Vendidos:".$data['sold_quantity'];
     }
 
-
 }

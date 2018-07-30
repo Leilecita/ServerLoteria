@@ -23,7 +23,7 @@ class OperationModel extends BaseModel
         return ($this->getDb()->delete($this->tableName, ['user_id' => $user_id]));
     }
     public function getLogName($data){
-        return "Transaccion";
+        return "Fiado";
     }
 
     public function getAmount($data){
