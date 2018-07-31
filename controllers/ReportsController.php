@@ -67,12 +67,11 @@ class ReportsController extends BaseController
 
         $total_amount2= $sum - $rest;
 
-        $total_amount=$sumAwards+$mistakesDay+$mistakesSold+$sube+$sumOperations+$sumTickets+$sumDeposit+$sumDebtA+$sumMoves+$sumInitDay+$sumRestBox;
-
         $reportItems2 = array(
             array(
                 'awards' => $sumAwards, 'mistakes_day' => $mistakesDay , 'mistakes_sold' => $mistakesSold, 'sube' => $sube,
-                'operations' => $sumOperations,
+                'operations' => $sumOperationsNewTrust,
+                'operations_payed' => $sumOperationsDebtCancel,
                 'tickets' =>  $sumTickets,
                 'deposit' => $sumDeposit ,'debt_a' =>$sumDebtA,'box_moves' => $sumMoves,'init_day' => $sumInitDay,'rest_box' => $sumRestBox,
                 'total_amount' =>$total_amount2,
@@ -146,6 +145,72 @@ class ReportsController extends BaseController
     }
 
     function texto(){
+        $awards = new AwardModel();
+        $money_box= new MoneyBoxModel();
+        $spendings = new SpendingModel();
+        $transactions = new OperationModel();
+        $tickets = new TicketModel();
+        $mistakes = new MistakeModel();
+
+        $textItem=array();
+
+        $lastBox = $money_box->findLast();
+
+        $created=$lastBox['created'];
+
+        $sumDeposit=$lastBox['deposit'];
+        $sumDebtA=$lastBox['debt_a'];
+        $sumInitDay=$lastBox['money_init_day'];
+        $sumRestBox=$lastBox['money_day_after'];
+
+        $sumOperationsNewTrust=$transactions->sumNegative($created,0); // fiados del dia
+
+        $sumOperationsDebtCancel=$transactions->sumPositive($created,0); //fiados de dias anteriores cancelados
+
+        $mistakesDay=$mistakes->sum($created);
+        $soldedMistakes=$mistakes->sumSoldMistakes();
+        $sumMoves=$spendings->sum($created);
+
+        $sumMovesSpending=$spendings->sumNegative($created,0.0);
+        $sumMovesEntry=$spendings->sumPositive($created,0.0);
+
+        $sumAwards= $awards->sumAwards($created);
+        $sumTickets=$tickets->sumPreimpresos();
+        $sube=$awards->sumSube($created,"sube");
+
+        $sum= abs($sumRestBox) + abs($sumDeposit) + abs($sumOperationsNewTrust) +abs($mistakesDay) + abs($sumMovesSpending) + abs($sumAwards);
+
+        $rest= abs($sumInitDay) + abs($sumOperationsDebtCancel) + abs($sumTickets) + abs($soldedMistakes) + abs($sube) + abs($sumDebtA) + abs($sumMovesEntry);
+
+        $total_amount= $sum - $rest;
+
+        $textItem[]=" TOTALES: \n";
+        $textItem[]="  Premios pagados: ".$sumAwards."\n";
+        $textItem[]="  Movimientos de caja: ".$sumMoves."\n";
+
+        $textItem[]="  Fiados de día: ".$sumOperationsNewTrust." \n";
+        $textItem[]="  Pago de fiados anteriores: ".$sumOperationsDebtCancel." \n";
+
+        $textItem[]="  Venta preimpresos: ".$sumTickets." \n";
+
+        $textItem[]="  Errores del día: ".$mistakesDay." \n";
+        $textItem[]="  Errores vendidos: ".$soldedMistakes." \n";
+
+        $textItem[]="  Cargas sube: ".$sube."\n";
+
+        $textItem[]=" CAJA \n";
+        $textItem[]="  Depósito bancario: $".$lastBox['deposit']."\n";
+        $textItem[]="  Deuda maquina A: $".$lastBox['debt_a']."\n";
+        $textItem[]="  Resto de caja: $".$lastBox['money_day_after']."\n";
+        $textItem[]="  Inicio del día: $".$lastBox['money_init_day']."\n";
+
+        $textItem[]=" RESULTADO DE LA CAJA: ".$total_amount."\n";
+
+        $this->returnSuccess(200,$textItem);
+
+    }
+
+   /* function texto(){
 
         $awards = new AwardModel();
         $money_box= new MoneyBoxModel();
@@ -220,15 +285,15 @@ class ReportsController extends BaseController
         $textItem[]=" Resto de caja: $".$lastBox['money_day_after']."\n";
         $textItem[]=" Inicio del día: $".$lastBox['money_init_day']."\n";
 
-       /* $textItem[]=" Historial de eventos: \n";
+       $textItem[]=" Historial de eventos: \n";
         for($i=0;$i < count($eventsList); $i++){
             $textItem[]= "* ".$eventsList[$i]['name']. " - ".$eventsList[$i]['state']. " - ".$eventsList[$i]['amount'].
                 " - ".$eventsList[$i]['observation']. " - ".$this->formatDate($eventsList[$i]['created'])." \n";
-        }*/
+        }
 
         $this->returnSuccess(200,$textItem);
 
-    }
+    }*/
 
     function formatDate($date){
         $dtServer = new DateTime($date, new DateTimeZone('UTC'));
