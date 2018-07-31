@@ -39,17 +39,26 @@ class OperationModel extends BaseModel
 
 
     public function getDescription($data){
-        $user=$this->getDb()->fetch_row('SELECT * FROM users WHERE id = ?',$data['user_id']);
+        if($data['amount'] <0){
+            return "Deuda por";
+        }else{
+            return "A cuenta";
+        }
+       /* $user=$this->getDb()->fetch_row('SELECT * FROM users WHERE id = ?',$data['user_id']);
 
-        return $user['name'];
+        return $user['name'];*/
 
     }
 
     public function getState($data){
-        if($data['amount'] <0){
-            return " Deuda por";
+        $user=$this->getDb()->fetch_row('SELECT * FROM users WHERE id = ?',$data['user_id']);
+
+        return $user['name'];
+
+       /* if($data['amount'] <0){
+            return "Deuda por";
         }else{
-            return " A cuenta";
-        }
+            return "A cuenta";
+        }*/
     }
 }

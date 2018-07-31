@@ -190,7 +190,7 @@ class ReportsController extends BaseController
 
         $textItem[]=" Fiados: \n";
         for($i=0;$i < count($transactionsList); $i++){
-            $textItem[]= "* Fiado : ".$this->formatDate($transactionsList[$i]['created']). " - :".$transactionsList[$i]['user_id']. " - valor $".$transactionsList[$i]['amount']." \n";
+            $textItem[]= "* Fiado : ".$this->formatDate($transactionsList[$i]['created']). " - :".$transactionsList[$i]['user_name']. " - valor $".$transactionsList[$i]['amount']." \n";
         }
 
         $textItem[]=" Preimpresos:  \n";
