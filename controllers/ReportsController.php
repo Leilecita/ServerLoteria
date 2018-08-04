@@ -63,7 +63,7 @@ class ReportsController extends BaseController
 
         $sum= abs($sumRestBox) + abs($sumDeposit) + abs($sumOperationsNewTrust) +abs($mistakesDay) + abs($sumMovesSpending) + abs($sumAwards);
 
-        $rest= abs($sumInitDay) + abs($sumOperationsDebtCancel) + abs($sumTickets) + abs($mistakesSold) + abs($sube) + abs($sumDebtA) + abs($sumMovesEntry);
+        $rest= abs($sumInitDay) + abs($sumOperationsDebtCancel) + abs($sumTickets) + abs($mistakesSold) + abs($sube) + $sumDebtA + abs($sumMovesEntry);
 
         $total_amount2= $sum - $rest;
 
@@ -134,7 +134,7 @@ class ReportsController extends BaseController
 
         $sum= abs($lastBox['money_day_after']) + abs($lastBox['deposit']) + abs($sumOperationsNewTrust) +abs($mistakesDay)  + abs($sumMovesSpending) + abs($sumAwards);
 
-        $rest= abs($lastBox['money_init_day']) + abs($sumOperationsDebtCancel) + abs($soldedMistakes) + abs($sumTickets) + abs($sube) + abs($lastBox['debt_a']) + abs($sumMovesEntry);
+        $rest= abs($lastBox['money_init_day']) + abs($sumOperationsDebtCancel) + abs($soldedMistakes) + abs($sumTickets) + abs($sube) + $lastBox['debt_a'] + abs($sumMovesEntry);
 
         $totalAmount2= $sum - $rest;
 
@@ -180,7 +180,7 @@ class ReportsController extends BaseController
 
         $sum= abs($sumRestBox) + abs($sumDeposit) + abs($sumOperationsNewTrust) +abs($mistakesDay) + abs($sumMovesSpending) + abs($sumAwards);
 
-        $rest= abs($sumInitDay) + abs($sumOperationsDebtCancel) + abs($sumTickets) + abs($soldedMistakes) + abs($sube) + abs($sumDebtA) + abs($sumMovesEntry);
+        $rest= abs($sumInitDay) + abs($sumOperationsDebtCancel) + abs($sumTickets) + abs($soldedMistakes) + abs($sube) + $sumDebtA + abs($sumMovesEntry);
 
         $total_amount= $sum - $rest;
 
