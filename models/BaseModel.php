@@ -178,7 +178,16 @@ abstract class BaseModel{
 
             return 0;
         }
+    }
 
+    function sumAwardsByNameAndDate($date,$name){
+        $response = $this->db->fetch_row('SELECT SUM(amount) AS total FROM '.$this->tableName.' WHERE created >= ? AND name = ?',$date,$name);
+        if($response['total'] != null){
+            return $response["total"];
+        }else{
+
+            return 0;
+        }
     }
 
     function sumSoldMistakes(){
@@ -199,6 +208,10 @@ abstract class BaseModel{
     }
     function findByUserId($user_id){
         return $this->db->fetch_row('SELECT * FROM '.$this->tableName.' WHERE document = ?',$user_id);
+    }
+
+    function findByName($name){
+        return $this->db->fetch_row('SELECT * FROM '.$this->tableName.' WHERE name = ?', $name);
     }
 
     function findAll($filters=array(),$paginator=array()){
@@ -245,6 +258,12 @@ abstract class BaseModel{
     function updateTransactions($id,$data){
         return  $this->db->update($this->tableName, $data,['user_id' => "$id"]);
     }
+
+    function updateTicketsAwards($id,$data){
+        return  $this->db->update($this->tableName, $data,['name' => "$id"]);
+    }
+
+
 
     function updateAll( $data){
         $query = 'UPDATE '.$this->tableName.' SET ';

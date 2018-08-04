@@ -74,8 +74,11 @@ class MoneyBoxController extends BaseController {
         $ticketModel = new TicketModel();
         $ticketModel->updateAll(array('sold_quantity' => 0));
 
+        $ticketModel->updateAll(array('day_awards' => 0));
+        
         $mistakeModel= new MistakeModel();
         $mistakeModel->updateMistakes("true",array('observation' => 'vendido', 'sold_today' => 'false'));
+
 
         parent::post();
     }
