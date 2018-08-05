@@ -146,6 +146,17 @@ abstract class BaseModel{
         }
 
     }
+    //solo sube
+    function getSumSube($date,$obs){
+        $response = $this->db->fetch_row('SELECT SUM(amount) AS total FROM '.$this->tableName.' WHERE created >= ? AND observation = ?',$date,$obs);
+        if($response['total'] != null){
+            return $response;
+        }else{
+            $response['total']=0.0;
+            return $response;
+        }
+
+    }
 
     function sumPreimpresos(){
 

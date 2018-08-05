@@ -21,6 +21,14 @@ class AwardsController  extends BaseController {
         return $this->returnSuccess(200,$totalAmount);
     }
 
+    function amountsube(){
+        $created = isset($_GET['created']) ? $_GET['created'] : '1900-01-01';
+
+        $totalAmount= $this->getModel()->getSumSube($created,"sube");
+
+        return $this->returnSuccess(200,$totalAmount);
+    }
+
     function post(){
 
         parent::post();
