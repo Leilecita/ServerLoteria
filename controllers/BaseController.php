@@ -3,7 +3,7 @@
 require_once __DIR__.'/../models/EventModel.php';
 
 date_default_timezone_set('UTC');
-define('PAGE_SIZE',10);
+define('PAGE_SIZE',2);
 
 class BaseController {
 
