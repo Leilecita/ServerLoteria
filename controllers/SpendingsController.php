@@ -2,6 +2,7 @@
 
 require_once "BaseController.php";
 require_once __DIR__.'/../models/SpendingModel.php';
+require_once __DIR__.'/../models/MoneyBoxModel.php';
 
 class SpendingsController extends BaseController {
 
