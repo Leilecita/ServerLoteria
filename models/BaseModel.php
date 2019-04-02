@@ -238,9 +238,17 @@ abstract class BaseModel{
         return $this->db->fetch_all($query);
     }
 
+
+
     function findAllByName($filters=array(),$paginator=array()){
         $conditions = join(' AND ',$filters);
         $query = 'SELECT * FROM '.$this->tableName .( empty($filters) ?  '' : ' WHERE '.$conditions ).' ORDER BY name ASC LIMIT '.$paginator['limit'].' OFFSET '.$paginator['offset'];
+        return $this->db->fetch_all($query);
+    }
+
+    function findAllByDebt($filters=array(),$paginator=array()){
+        $conditions = join(' AND ',$filters);
+        $query = 'SELECT * FROM '.$this->tableName .( empty($filters) ?  '' : ' WHERE '.$conditions ).' ORDER BY debt ASC LIMIT '.$paginator['limit'].' OFFSET '.$paginator['offset'];
         return $this->db->fetch_all($query);
     }
 

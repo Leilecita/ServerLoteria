@@ -11,6 +11,19 @@ class UsersController extends BaseController {
         $this->model = new UserModel();
     }
 
+    function getClients(){
+
+        if($_GET['order'] == "name"){
+            $list_clients=$this->getModel()->findAllByName($this->getFilters(),$this->getPaginator());
+        }else{
+            $list_clients=$this->getModel()->findAllByDebt($this->getFilters(),$this->getPaginator());
+        }
+
+
+        $this->returnSuccess(200, $list_clients);
+    }
+
+
     function get(){
         if(isset($_GET['method'])){
             $this->method();
@@ -23,8 +36,8 @@ class UsersController extends BaseController {
             }
 
         }else{
-            //$this->returnSuccess(200,$this->getModel()->findAllByName($this->getFilters(),$this->getPaginator()));
-            $this->returnSuccess(200,$this->getModel()->findAllByNameAndDebt($this->getFilters(),$this->getPaginator()));
+            $this->getClients();
+            //  $this->returnSuccess(200,$this->getModel()->findAllByNameAndDebt($this->getFilters(),$this->getPaginator()));
         }
     }
 
